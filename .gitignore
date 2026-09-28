@@ -27,18 +27,8 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
-node_modules
-myenv
 # ========================
 # OS & SYSTEM FILES
 # ========================
 .DS_Store
 Thumbs.db
-
-# ========================
-# NOTE ON ARTIFACTS:
-# We are NOT ignoring the deployment_artifacts/ folder 
-# because your .pkl, .keras, and food_database.csv (28MB) 
-# fit comfortably under GitHub's 100MB per-file limit 
-# and are strictly required for the deployed app to run.
-# ========================

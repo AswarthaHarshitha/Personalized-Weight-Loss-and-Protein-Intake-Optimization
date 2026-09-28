@@ -4,9 +4,10 @@ A full-stack web application that generates personalized, high-adherence meal pl
 
 ---
 
-## 🌐 Live Demo
+## 🌐 Deployment
 
-Backend API (Railway): `https://weightloss-app-frontend.onrender.com`
+- Frontend (Render): https://weightloss-app-frontend.onrender.com
+- Backend API (Railway): `https://weightlossapp-production.up.railway.app` — currently offline, so plan generation on the hosted frontend needs the API redeployed.
 
 ---
 
@@ -25,7 +26,7 @@ Backend API (Railway): `https://weightloss-app-frontend.onrender.com`
 ## 🏗️ Project Structure
 
 ```
-AI-WeightLoss-App-main/
+Personalized-Weight-Loss-and-Protein-Intake-Optimization/
 ├── backend/
 │   ├── main.py                  # FastAPI app — all API routes
 │   ├── ml_model.py              # HCMLP inference + food selection logic
@@ -38,6 +39,7 @@ AI-WeightLoss-App-main/
 │       ├── minmax_scaler.pkl    # Fitted MinMaxScaler
 │       ├── cluster_encoder.pkl  # OneHotEncoder for cluster IDs
 │       ├── hc_cluster_model.pkl # Agglomerative Clustering model
+│       ├── proxy_discriminator.keras # Auxiliary model from training (not loaded at inference)
 │       └── hcmlp_model.keras    # Trained HCMLP neural network (TensorFlow/Keras)
 └── frontend/
     ├── src/
@@ -98,6 +100,7 @@ AI-WeightLoss-App-main/
 ### Deployment
 | Service | Role |
 |---|---|
+| **Render** | Frontend hosting |
 | **Railway** | Backend hosting |
 | **MongoDB Atlas** | Database hosting |
 
@@ -132,8 +135,8 @@ cd backend
 # Install dependencies
 pip install -r requirements.txt
 
-# Create a .env file
-echo "MONGO_URI=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/" > .env
+# Configure environment
+cp .env.example .env   # set MONGO_URI and SECRET_KEY
 
 # Start the server
 uvicorn main:app --reload --port 8000
@@ -213,29 +216,3 @@ All protected routes require the header: `Authorization: Bearer <token>`
 3. Token stored in **localStorage** on the frontend.
 4. Every protected API call sends `Authorization: Bearer <token>` in the header.
 5. FastAPI dependency `get_current_user` decodes and validates the token on each request.
-
----
-
-## 📦 Python Dependencies
-
-```
-fastapi
-uvicorn
-pydantic
-motor
-pandas
-numpy
-scikit-learn
-tensorflow-cpu
-PyWavelets
-scipy
-python-dotenv
-passlib[bcrypt]
-PyJWT
-```
-
----
-
-## 📄 License
-
-This project was developed as an academic capstone. All rights reserved by the project team.

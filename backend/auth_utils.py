@@ -1,9 +1,13 @@
+import os
 import jwt
 import bcrypt
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 
-# In a real app, keep this in your .env file
-SECRET_KEY = "hcmlp_capstone_super_secret_key_2026"
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY environment variable is not set")
 ALGORITHM = "HS256"
 
 def get_password_hash(password: str) -> str:
